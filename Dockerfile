@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 RUN apt-get update && apt-get -y install \
-software-properties-common git libcurl4-gnutls-dev libxml2-dev \
+tcsh software-properties-common git libcurl4-gnutls-dev libxml2-dev \
 r-base  
 RUN mkdir /home/NucleosomeDynamics
 WORKDIR /home/NucleosomeDynamics
@@ -13,9 +13,14 @@ RUN git clone -b docker http://mmb.irbbarcelona.org/gitlab/NuclDynamics/nucleSer
 RUN mkdir /public_dir
 RUN mkdir /data_dir
 VOLUME ['/public_dir','/data_dir']
+RUN apt-get install csh
+COPY wf-test.sh .
+COPY runNuclDyn .
+RUN chmod +x runNuclDyn
 RUN adduser nucdyn
 USER nucdyn:nucdyn
-COPY wf-test.sh .
+
+
 
 
 

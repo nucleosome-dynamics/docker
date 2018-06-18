@@ -1,9 +1,11 @@
 #!/bin/csh 
 
-setenv NUCDYN /home/NucleosomeDynamics/NuclDyn
+setenv NUCDYN "/usr/bin/Rscript /home/NucleosomeDynamics/NuclDyn"
 setenv DATADIR /data_dir
 setenv PUBLICDIR /public_dir
 #
+cd $DATADIR
+
 if ($#argv<1) then
    set op='--help'
 else
@@ -14,9 +16,9 @@ endif
 switch ($op) 
 case "run":
    if ($argv[2] == '--help') then
-	echo "Usage: NuclDyn WF_file (stored in $DATADIR)"
+	echo "Usage: NuclDyn WF_file (stored in $DATADIR/scripts)"
    else 
-	$DATADIR/$2 
+	$DATADIR/scripts/$2 
    endif
    breaksw
 case "readBAM":
