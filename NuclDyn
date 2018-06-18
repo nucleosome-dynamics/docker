@@ -1,0 +1,172 @@
+#!/bin/csh 
+
+setenv NUCDYN /home/NucleosomeDynamics/NuclDyn
+setenv DATADIR /data_dir
+setenv PUBLICDIR /public_dir
+#
+if ($#argv<1) then
+   set op='--help'
+else
+   set op=$1
+   set argv[1]=''
+endif
+#
+switch ($op) 
+case "run":
+   if ($argv[2] == '--help') then
+	echo "Usage: NuclDyn WF_file (stored in $DATADIR)"
+   else 
+	$DATADIR/$2 
+   endif
+   breaksw
+case "readBAM":
+   if ($argv[2] == '--help') then
+	echo "Usage: NuclDyn $argv[1] --input {bam} --output {RData} --type [single|paired]"
+   else
+	$NUCDYN/bin/readBAM.R $argv
+   endif
+   breaksw
+case "nucleR":
+   if ($argv[2] == '--help') then
+	echo "Usage: NuclDyn nucleR --input {RData} --output {gff} --type [single|PAIRED] --width [int] --minoverlap [int] --dyad_length [int, 50] --thresholdPercentage [double, 35] --hthresh [double, 0.4] --wthresh [double, 0.6] --pcKeepComp [double, 0.02] --fdrOverAmp [double, 0.05] --components [int, 1] --fragmentLen [int] --trim [int, 50] --threshold [logical, TRUE] --thresholdValue [int, 10] --hthresh [double, 0.4] --start [int] --end [int] --chr [str] --cores [int, 1]"
+   else
+	$NUCDYN/bin/nucleR.R $argv 
+   endif
+   breaksw
+case "nucleR_stats":
+   if ($argv[2] == '--help') then
+	echo "Usage: NuclDyn nucleR_stats --input {gff} --genome {gff} --out_genes {csv} --out_gw {csv}"
+   else
+	$NUCDYN/statistics/nucleR.R $argv 
+   endif
+   breaksw
+case "NFR": 
+   if ($argv[2] == '--help') then
+	echo "Usage: --input {gff} --output {gff} --minwidth [int, 110] --threshold [int, 400]"
+   else
+	$NUCDYN/bin/NFR.R $argv 
+   endif
+   breaksw
+case "NFR_stats": 
+   if ($argv[2] == '--help') then
+	echo "Usage: --input {gff} --out_gw {csv} --genome {gff}"
+   else
+	$NUCDYN/statistics/NFR.R $argv 
+   endif
+   breaksw
+case "txstart":
+   if ($argv[2] == '--help') then
+	echo "Usage: --calls {gff} --genome {gff} --output {gff} --window [int, 300] --open_thresh [int, 215] --cores [int, 1] --p1.max.merge [int, 3] --p1.max.downstream [int, 20] --max.uncovered [int, 150]"
+   else
+	$NUCDYN/bin/txstart.R $argv 
+   endif
+   breaksw
+case "txstart_stats":
+   if ($argv[2] == '--help') then
+	echo "Usage: #--input {gff} --genome {gff} --out_genes {csv} --out_gw {png} --out_gw2 {png}"
+   else
+	$NUCDYN/statistics/txstart.R $argv 
+   endif
+   breaksw
+case "periodicity":
+   if ($argv[2] == '--help') then
+	echo "Usage: --calls {gff} --reads {RData} --type [single|paired] --gffOutput {gff} --bwOutput {bw} --genes {gff} --chrom_sizes {chrom.sizes} --periodicity [int, 165] --cores [int, 1]"
+   else
+	$NUCDYN/bin/periodicity.R $argv
+   endif
+   breaksw
+case "periodicity_stats":
+   if ($argv[2] == '--help') then
+	echo "Usage: --input {gff} --genome {gff} --out_genes {csv} --out_gw {csv} "
+   else
+	$NUCDYN/statistics/periodicity.R $argv 
+   endif
+   breaksw
+case "gaussfitting":
+   if ($argv[2] == '--help') then
+	echo "Usage: --calls {gff} --reads {RData} --output {gff} --range [str, All|chr|chr:start-end] --t [double, 310.15]"
+   else
+	$NUCDYN/bin/gausfitting.R $argv 
+   endif
+   breaksw
+case "gaussfitting_stats":
+   if ($argv[2] == '--help') then
+	echo "Usage: --input {gff} --genome {gff} --out_genes {csv} --out_gw {csv} --out_gw2 {png} !!plot settings hard-coded"
+   else
+	$NUCDYN/statistics/gausfitting.R $argv
+   endif
+   breaksw
+case "nucDyn": 
+   if ($argv[2] == '--help') then
+	echo "Usage: --input1 {RData} --input2 {RData} --outputGff {gff} --outputBigWig {bw} --plotRData {RData} --genome {chrom.sizes} --range [str, All|chr|chr:start-end] --maxDiff [int, 74] --maxLen [int, 170] --shift_min_nreads [int, 3] --shift_threshold [float, 0.1] --indel_min_nreads [int, 3] --indel_threshold [float, 0.05] --cores [int, 1] --equal_size [logical, FALSE] --readSize [int, 140] --roundPow [logical] --same_magnitude [logical]"
+   else
+	$NUCDYN/bin/nucDyn.R $argv
+   endif
+   breaksw
+case "nucDyn": 
+   if ($argv[2] == '--help') then
+	echo "Usage: --input {gff} --genome {gff} --out_genes {csv} --out_gw {png}"
+   else
+	$NUCDYN/statistics/nucDyn.R $argv
+   endif
+   breaksw
+case "nucleR2structure":
+   if ($argv[2] == '--help') then
+	echo "Usage: --calls {gff} --genome_file {fasta} --range [chrI:2000-2600] --seq_output {seq} --nucs_output {nucleosomes} --margin [int]"
+   else
+	$NUCDYN/nucleR2structure.py  $argv
+   endif
+   breaksw
+case "toBigWig":
+   if ($argv[2] == '--help') then
+	echo "Usage:"
+   else
+	$NUCDYN/bin/to_bigWig.R $argv
+   endif
+   breaksw
+case "fromBigWig":
+   if ($argv[2] == '--help') then
+	echo "Usage:"
+   else
+	$NUCDYN/bin/from_bigWig.R $argv
+   endif
+   breaksw
+case "coverage":
+   if ($argv[2] == '--help') then
+	echo "Usage:"
+   else
+	$NUCDYN/bin/coverage.R $argv
+   endif
+   breaksw
+case "js_plot":
+   if ($argv[2] == '--help') then
+	echo "Usage:"
+   else
+	$NUCDYN/bin/js_plot.R $argv
+   endif
+   breaksw
+case "--help":
+default:
+   echo "Usage: NuclDyn command"
+   echo " use NuclDyn command --help for parameter details"
+   echo " Available commands:"
+   echo "  run:              Run Workflow in data_dir"
+   echo "  readBAM:          Read Aligmed BAM into RData structure (required)"
+   echo "  nucleR:           Nucleosome calling"
+   echo "  nucleR_stats:     Nucleosome call statistics"
+   echo "  NFR:              Nucleosome Free Regions"
+   echo "  NFR_stats:        Nucleosome Free Regions statistics"
+   echo "  txstart:          Nucleosomes at TSS and TTS"
+   echo "  txstart_stats:    TSS and TTS statistics"
+   echo "  periodicity:      Nucleosome periodicity on genes"
+   echo "  periodicity_stats Statistics on Nucleosome periodicity"
+   echo "  gaussfitting:     Stiffness on nucleosome positioning"
+   echo "  gaussfitting_stats: Statistics on stiffness"
+   echo "  nucDyn:           Nucleosome Dynamics analysis"
+   echo "  nucDyn_stats:     Statistics on Nucleosome Dynamics analysis"
+   echo "  nucleR2structure: "
+   echo "  toBigWig: "
+   echo "  fromBigWig: "
+   echo "  coverage: "
+   echo "  js_plot: "
+endsw
