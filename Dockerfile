@@ -16,6 +16,7 @@ RUN mkdir /data_dir
 VOLUME ['/public_dir','/data_dir']
 COPY wf-test.sh .
 COPY runNuclDyn .
+COPY help/* help/
 RUN chmod +x runNuclDyn
 ENTRYPOINT ["/home/NucleosomeDynamics/runNuclDyn"]
 RUN adduser nucdyn
