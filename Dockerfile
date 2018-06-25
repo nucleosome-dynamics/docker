@@ -20,6 +20,16 @@ RUN chmod +x runNuclDyn
 ENTRYPOINT ["/home/NucleosomeDynamics/runNuclDyn"]
 RUN adduser nucdyn
 USER nucdyn:nucdyn
+#
+############# Metadata ###################
+LABEL base.image="ubuntu:16.04"
+LABEL software="NucleosomeDynamics"
+LABEL software.version="NucDyn 0.1, NucleR 2.13.0"
+LABEL version="0.1"
+LABEL about.summary="R Based package for Nucleosome positioning analysis using MNase seq data"
+LABEL about.home="http://mmb.irbbarcelona.org/NucleosomeDynamics"
+LABEL about.license=""
+LABEL maintainer="Josep Ll. Gelpi <gelpi@ub.edu>"
 
 
 
