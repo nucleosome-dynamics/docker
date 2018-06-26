@@ -7,8 +7,8 @@ WORKDIR /home/NucleosomeDynamics
 COPY setRlibs.R .
 RUN /usr/bin/Rscript setRlibs.R 
 COPY NucDyn_0.1.tar.gz .
-COPY nucleR_2.13.0.tar.gz .
-RUN R CMD INSTALL nucleR_2.13.0.tar.gz
+COPY nucleR_2.2.0.tar.gz .
+RUN R CMD INSTALL nucleR_2.2.0.tar.gz
 RUN R CMD INSTALL NucDyn_0.1.tar.gz
 RUN git clone -b docker http://mmb.irbbarcelona.org/gitlab/NuclDynamics/nucleServ.git NuclDyn
 RUN mkdir /public_dir
@@ -19,7 +19,7 @@ COPY runNuclDyn .
 COPY help/* help/
 RUN chmod +x runNuclDyn
 ENTRYPOINT ["/home/NucleosomeDynamics/runNuclDyn"]
-RUN adduser nucdyn
+RUN adduser -uid 99990 --home /home/NucleosomeDynamics --no-create-home nucdyn
 USER nucdyn:nucdyn
 #
 ############# Metadata ###################
