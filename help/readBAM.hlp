@@ -1,4 +1,4 @@
-readBAM read aligned BAM files containing MNase-seq data and formats them into a RData structure suitable for use by NucleR and others
+readBAM reads aligned BAM files containing MNase-seq data and formats them into a RData structure suitable for use by NucleR and others
 
 Usage: (runNuclDyn|docker run nucldyn) readBAM --input {bam} --output {RData} --type (single|paired)
 

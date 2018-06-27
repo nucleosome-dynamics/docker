@@ -1,6 +1,4 @@
 
-===> Nucleosome Dynamics (docker version) v0.1 <===
-
 Nucleosome positioning plays a major role in transcriptional regulation and most DNA-related processes. The nucleosome dynamics server offers different tools to analyze nucleosome positioning from MNase-seq experimental data and perform comparative experiments to account for the transient and dynamic nature of nucleosome positioning under different cellular states.
 
 Two specific programs, nucleR and NucleosomeDynamics, were specifically developed to perform such studies:

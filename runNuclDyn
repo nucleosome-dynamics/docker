@@ -1,75 +1,101 @@
-#!/bin/csh 
-
-setenv RSCRIPT /usr/bin/Rscript
-setenv NDDIR /home/NucleosomeDynamics
-setenv BINDIR $NDDIR/NuclDyn/bin
-setenv STATBINDIR $NDDIR/NuclDyn/statistics
-setenv HELPDIR $NDDIR/help
-
-setenv DATADIR /data_dir
-setenv PUBLICDIR /public_dir
+#!/usr/bin/perl
 #
-if (-e $DATADIR) then
-   cd $DATADIR
-else
-   echo "Warning: $DATADIR does not exist"
-endif
-if (-e $PUBLICDIR) then
-else
-   echo "Warning: $PUBLICDIR does not exist"
-endif
+# runNuclDyn: launcher for Nucl. Dynamics executables
+# Josep Ll. Gelpi 2018
+#
+use strict;
 
-if ($#argv<1) then
-   /bin/cat $HELPDIR/main.hlp
-   exit 0
-endif
+my $RSCRIPT = "/usr/bin/Rscript";
+my $NDDIR = "/home/NucleosomeDynamics";
 
-set op=$1
-set argv[1]=''
 
-if ($# < 2) then
-  set argv=(--help --help)
-endif
+my $BINDIR = "$NDDIR/NuclDyn/bin";
+my $STATBINDIR = "$NDDIR/NuclDyn/statistics";
+my $HELPDIR = "$NDDIR/help";
 
-if ($argv[2] == '--help')  then
-  /bin/cat $HELPDIR/header.txt $HELPDIR/$op.hlp
-  exit 0
-endif
+my $GALAXY_FILES_PREFIX = "/home/galaxy/galaxy/database/files"; # TODO make automatic
 
-/bin/cat $HELPDIR/header.txt
+my $DATADIR = "/data_dir";
+my $PUBLICDIR = "/public_dir";
+my $FUNCTIONS = ['run','readBAM','nucleR','NFR','txstart','periodicity','stiffness','nucDyn','nucleR2structure','toBigWig','fromBigWig','coverage','js_plot'];
+my $FUNCTIONS_STATS = ['nucleR_stats','NFR_stats','txstart_stats','periodicity_stats','stiffness_stats','nucDyn_stats'];
 
-switch ($op) 
-case "run":
-   echo "===> Running $op <==="
-   echo ""
-   /bin/sh $DATADIR/scripts/$2 
-   breaksw
-case "readBAM":
-case "nucleR":
-case "NFR": 
-case "txstart":
-case "periodicity":
-case "gaussfitting":
-case "nucDyn": 
-case "nucleR2structure":
-case "toBigWig":
-case "fromBigWig":
-case "coverage":
-case "js_plot":
-   echo "===> Running $op <==="
-   echo ""
-   $RSCRIPT $BINDIR/$op.R $argv
-   breaksw
-case "nucleR_stats":
-case "NFR_stats": 
-case "txstart_stats":
-case "periodicity_stats":
-case "gaussfitting_stats":
-case "nucDyn_stats": 
-   echo "Running $op"
-   $RSCRIPT $STATBINDIR/$op.R $argv
-   breaksw
-default:
-   /bin/cat $HELPDIR/main.hlp
+#
+system ("/bin/cat $HELPDIR/header.txt");
 
-endsw
+#Checking if running in galaxy
+
+my $galaxy_mode = ($ARGV[0] eq "galaxy");
+if ($galaxy_mode)  {
+    shift;
+}
+
+# Main Help
+
+
+if (!@ARGV || ($ARGV[0] eq '--help') || ($ARGV[0] eq '-h')) {
+    system ("/bin/cat $HELPDIR/main.hlp");
+    exit;
+}
+
+my $op = shift;
+
+if (!is_valid_function($op) && !is_valid_function_stats($op)) {
+    die "\nError: unrecognized function $op, try [-h |--help]\n\n";
+}
+
+#Specific help
+if (!@ARGV || ($ARGV[0] eq '--help') || ($ARGV[0] eq '-h')) {
+    system ("/bin/cat $HELPDIR/$op.hlp");
+    exit;
+}
+
+if ($galaxy_mode) {
+    map s/$GALAXY_FILES_PREFIX//, @ARGV;
+}
+	
+# Running tool
+#
+if (-e $DATADIR) {
+    chdir $DATADIR;
+} else {
+    print "Warning: $DATADIR does not exist\n";
+}
+
+if (!-e $PUBLICDIR) {
+    print "Warning: $PUBLICDIR does not exist\n";
+}
+
+if ($op eq "run") {
+    print "===> Running $op <===\n\n";
+    system ("/bin/sh $DATADIR/scripts/$ARGV[0]");
+} else {
+    print "===> Running $op <===\n\n";
+    if (($op =~ /stats/) && is_valid_function_stats($op)) {
+        $op =~ s/_stats//;
+        system ("$RSCRIPT $STATBINDIR/$op.R ". join " ",@ARGV);
+    } elsif (is_valid_function($op)) {
+        system ("$RSCRIPT $BINDIR/$op.R ". join " ",@ARGV);
+    } else {
+        system ("/bin/cat $HELPDIR/main.hlp");
+    }
+}
+
+sub is_valid_function {
+   my $f = shift;
+   return _is_valid($f, $FUNCTIONS);
+}
+
+sub is_valid_function_stats {
+   my $f = shift;
+   return _is_valid($f, $FUNCTIONS_STATS);
+}
+
+sub _is_valid {
+  my ($f, $list) = @_;
+  my $i=0;
+  
+  while (($i<$#{$list}) && ($list->[$i] ne $f)) {$i++};
+  return ($list->[$i] eq $f);
+}
+   
