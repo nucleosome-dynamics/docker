@@ -51,7 +51,7 @@ if (!@ARGV || ($ARGV[0] eq '--help') || ($ARGV[0] eq '-h')) {
 }
 
 if ($galaxy_mode) {
-    map s/$GALAXY_FILES_PREFIX//, @ARGV;
+    map s/$GALAXY_FILES_PREFIX/\/data_dir/, @ARGV;
 }
 	
 # Running tool
