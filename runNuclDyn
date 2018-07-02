@@ -9,8 +9,7 @@ my $RSCRIPT = "/usr/bin/Rscript";
 my $NDDIR = "/home/NucleosomeDynamics";
 
 
-my $BINDIR = "$NDDIR/NuclDyn/bin";
-my $STATBINDIR = "$NDDIR/NuclDyn/statistics";
+my $BINDIR = "$NDDIR/NuclDyn/R";
 my $HELPDIR = "$NDDIR/help";
 
 my $GALAXY_FILES_PREFIX = "/home/galaxy/galaxy/database/files"; # TODO make automatic
@@ -31,7 +30,6 @@ if ($galaxy_mode)  {
 }
 
 # Main Help
-
 
 if (!@ARGV || ($ARGV[0] eq '--help') || ($ARGV[0] eq '-h')) {
     system ("/bin/cat $HELPDIR/main.hlp");
@@ -72,8 +70,8 @@ if ($op eq "run") {
 } else {
     print "===> Running $op <===\n\n";
     if (($op =~ /stats/) && is_valid_function_stats($op)) {
-        $op =~ s/_stats//;
-        system ("$RSCRIPT $STATBINDIR/$op.R ". join " ",@ARGV);
+#        $op =~ s/_stats//;
+        system ("$RSCRIPT $BINDIR/$op.R ". join " ",@ARGV);
     } elsif (is_valid_function($op)) {
         system ("$RSCRIPT $BINDIR/$op.R ". join " ",@ARGV);
     } else {
