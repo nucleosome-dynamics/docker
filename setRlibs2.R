@@ -1,7 +1,7 @@
 source("https://bioconductor.org/biocLite.R")
 biocLite('getopt')
 #biocLite('RCurl')
-biocLite('htSeqTools')
+biocLite('htSeqTools',ask = FALSE)
 #biocLite('htmlwidgets')
 biocLite('ggplot2')
 #biocLite('dplyr')

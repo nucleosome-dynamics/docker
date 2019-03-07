@@ -2,7 +2,7 @@
 #
 # runNuclDyn: launcher for Nucl. Dynamics executables
 # Josep Ll. Gelpi 2018
-#
+# Marc del Pino 2019
 use strict;
 use File::Basename;
 
@@ -10,7 +10,8 @@ my $RSCRIPT = "/usr/bin/Rscript";
 my $NDDIR = "/home/NucleosomeDynamics";
 
 
-my $BINDIR = "$NDDIR/NuclDyn/R";
+my $BINDIR = "$NDDIR/NuclDyn/bin";
+my $STATSDIR = "$NDDIR/NuclDyn/statistics";
 my $HELPDIR = "$NDDIR/help";
 
 my $GALAXY_FILES_PREFIX = "/database/files";
@@ -83,8 +84,10 @@ if ($op eq "run") {
 } else {
     print "===> Running $op <===\n\n";
     if (($op =~ /stats/) && is_valid_function_stats($op)) {
-#        $op =~ s/_stats//;
-        system ("$RSCRIPT $BINDIR/$op.R ". join " ",@ARGV);
+	$op =~ s/_stats//g;
+        my $args_str = join(" ",@ARGV);
+        print "$RSCRIPT $STATSDIR/$op.R $args_str\n";
+        system ("$RSCRIPT $STATSDIR/$op.R ". join " ",@ARGV);
     } elsif (is_valid_function($op)) {
         my $args_str = join(" ",@ARGV);
         print "$RSCRIPT $BINDIR/$op.R $args_str\n";
