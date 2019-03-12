@@ -5,31 +5,29 @@
 # Marc del Pino 2019
 use strict;
 use File::Basename;
+use Cwd;
 
 my $RSCRIPT = "/usr/bin/Rscript";
 my $NDDIR = "/home/NucleosomeDynamics";
 
+if (! -d $NDDIR){
+	my $lo = dirname($0);
+	$lo =~ s/\.//g;
+	$NDDIR = cwd().$lo;
+}
 
 my $BINDIR = "$NDDIR/NuclDyn/bin";
 my $STATSDIR = "$NDDIR/NuclDyn/statistics";
 my $HELPDIR = "$NDDIR/help";
 
-my $GALAXY_FILES_PREFIX = "/database/files";
+my $DATADIR = "/data_dir";     # used to find DATADIR/scripts/user_wf.file
+my $PUBLICDIR = "/public_dir"; # OBSOLETE
 
-my $DATADIR = "/data_dir";
-my $PUBLICDIR = "/public_dir";
 my $FUNCTIONS = ['run','readBAM','nucleR','NFR','txstart','periodicity','stiffness','nucDyn','nucleR2structure','toBigWig','fromBigWig','coverage','js_plot'];
 my $FUNCTIONS_STATS = ['nucleR_stats','NFR_stats','txstart_stats','periodicity_stats','stiffness_stats','nucDyn_stats'];
 
 #
 system ("/bin/cat $HELPDIR/header.txt");
-
-#Checking if running in galaxy
-
-my $galaxy_mode = ($ARGV[0] eq "galaxy");
-if ($galaxy_mode)  {
-    shift;
-}
 
 # Main Help
 
@@ -50,32 +48,10 @@ if (!@ARGV || ($ARGV[0] eq '--help') || ($ARGV[0] eq '-h')) {
     exit;
 }
 
-if ($galaxy_mode) {
-    my @args;
-    for(my $i=0; $i <= scalar(@ARGV); $i++){
-	my $arg = $ARGV[$i];
-	if ($arg =~ m/(.*$GALAXY_FILES_PREFIX\/)(.*)$/){
-	    my $galaxy_path = $1;
-	    my $file_path   = $2;
-	    $arg = "/data_dir/".$file_path;
-	    push(@args,$arg);
-	}else{
-	    push(@args,$arg);
-	}
-    }
-    @ARGV = @args;
-}
-
 # Running tool
 #
 if (-e $DATADIR) {
     chdir $DATADIR;
-} else {
-    print "Warning: $DATADIR does not exist\n";
-}
-
-if (!-e $PUBLICDIR) {
-    print "Warning: $PUBLICDIR does not exist\n";
 }
 
 if ($op eq "run") {

@@ -1,6 +1,6 @@
 Run prepacked workflow scripts (Experimental)
 
-Usage: (runNuclDyn | docker run nucldyn) run  WF_file
+Usage: (runNuclDyn | docker -v [WF_FOLDER]:/data_dir/scripts) run  [WF_file]
 
 Parameters:
 WF_file

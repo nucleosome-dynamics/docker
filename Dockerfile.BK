@@ -18,6 +18,9 @@ RUN R CMD INSTALL NucDyn.tar.gz
 RUN git clone -b galaxy http://mmb.irbbarcelona.org/gitlab/NuclDynamics/nucleServ.git NuclDyn 
 COPY setRlibs2.R .
 RUN /usr/bin/Rscript setRlibs2.R 
+RUN mkdir /public_dir
+RUN mkdir /data_dir
+VOLUME ['/public_dir','/data_dir']
 COPY wf-test.sh .
 COPY runNuclDyn . 
 COPY help/* help/
