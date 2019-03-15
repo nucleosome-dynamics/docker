@@ -8,7 +8,7 @@ The following step is the detection of nucleosome dyads, which is done by a simp
 
 Finally, the nucleosome calls are scored based on the height and sharpness of the peak. These height and width scores also allow to classify large and sharp peaks as well-positioned nucleosomes and short and wide peaks as fuzzy nucleosomes.
 
-Usage: (runNuclDyn|docker run) nucleR --input {RData} --output {gff} --type (single|PAIRED) --width int --minoverlap int [--dyad_length int (50)] [--thresholdPercentage double (35.)] [--hthresh double (0.4)] [--wthresh double (0.6)] [--pcKeepComp double (0.02)] [--fdrOverAmp double (0.05)] [--components int (1)] --fragmentLen [int] --trim [int, 50] --threshold [logical, TRUE] --thresholdValue [int, 10]  --start [int] --end [int] --chr [str] --cores [int, 1]
+Usage: (runNuclDyn|docker run [IMAGE]) nucleR --input {RData} --output {gff} --type (single|PAIRED) --width int --minoverlap int [--dyad_length int (50)] [--thresholdPercentage double (35.)] [--hthresh double (0.4)] [--wthresh double (0.6)] [--pcKeepComp double (0.02)] [--fdrOverAmp double (0.05)] [--components int (1)] --fragmentLen [int] --trim [int, 50] --threshold [logical, TRUE] --thresholdValue [int, 10]  --start [int] --end [int] --chr [str] 
 
 Parameters:
 --input: 
@@ -36,5 +36,3 @@ Parameters:
 --thresholdValue
 --start
 --end
---cores: Number of computer threads. Optional, default 1
-

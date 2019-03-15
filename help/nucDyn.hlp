@@ -23,11 +23,15 @@ To achieve that, the dynamic programming algorithm works the following way:
     Pairs are given a score that is inversely proportional to the centers distance (to prioratize close pairs).
     Centers distance bigger than 74 bp. are given a score of -Infinity so that it can never happen.
 
-Usage: (runNuclDyn | docker run nucldyn) NucDyn --input1 {RData} --input2 {RData} --outputGff {gff} --outputBigWig {bw} --plotRData {RData} --genome {chrom.sizes} --range (All|chr|chr:start-end) [--maxDiff (int, 74)] [--maxLen (int, 170)] --shift_min_nreads [int, 3] --shift_threshold [float, 0.1] --indel_min_nreads [int, 3] --indel_threshold [float, 0.05] --cores [int, 1] --equal_size [logical, FALSE] --readSize [int, 140] --roundPow [logical] --same_magnitude [logical]
+Usage: (runNuclDyn | docker run [IMAGE]) nucDyn --input1 {RData} --input2 {RData} --calls1 {gff} --calls2 {gff} --outputGff {gff} --outputBigWig {bw} --plotRData {RData} --genome {chrom.sizes} --range (All|chr|chr:start-end) [--maxDiff (int, 70)] [--maxLen (int, 140)] --shift_min_nreads [int, 3] --shift_threshold [float, 0.1] --indel_min_nreads [int, 3] --indel_threshold [float, 0.05] --cores [int, 1] --equal_size [logical, FALSE] --readSize [int, 140] --roundPow [logical] --same_magnitude [logical]
+
 
 Parameters:
 --input1, --input2
   Input BAM's from MNase-seq in RData format (from readBAM)
+
+--calls1, --calls2
+  Nucleosome calls in GFF format as obtained from NucleR
 
 --outputGff 
   Output of NucleosomeDynamics in GFF format. Annotations: nreads: Number of reads in that hotspot. class: Type of movement. It can be any of the following:  SHIFT +: Shift downstream (to the right), SHIFT -: Shift upstream (to the left), INCLUSION: Significant increase in coverage, EVICTION: Sigfniciant decrease in coverage.
@@ -44,10 +48,10 @@ Parameters:
   Genomic range to be analyzed. All: all chromosomes; chr: a Whole chromosome; chr:start-end: a specific region given the coordinates
 
 --maxDiff 
-  Maximum distance between the centers of two fragments for them to be paired as shifts. (bp) Optional,default 74bp
+  Maximum distance between the centers of two fragments for them to be paired as shifts. (bp) Optional,default 70bp
   
 --maxLen
-  This value is used in a preliminar filtering. Fragments longer than this will be filtered out, since they are likely the result of MNase under-digestion and represent two or more nucleosomes. (bp) Optional, default 170bp 
+  This value is used in a preliminar filtering. Fragments longer than this will be filtered out, since they are likely the result of MNase under-digestion and represent two or more nucleosomes. (bp) Optional, default 140bp 
 
 --shift_min_nreads
   Minimum number of shifted reads for a shift hostspot to be reported (int), optional, default 3

@@ -50,27 +50,36 @@ if (!@ARGV || ($ARGV[0] eq '--help') || ($ARGV[0] eq '-h')) {
 
 # Running tool
 #
+my $hasError_file = "/tmp/hasError".rand();
+my $cmd_catchErr = "while read line; do echo \$line; if echo \${line} | grep -iqP 'ERROR'; then echo \${line}  >  $hasError_file;  fi;  done";
+
 if (-e $DATADIR) {
     chdir $DATADIR;
 }
 
 if ($op eq "run") {
     print "===> Running $op <===\n\n";
-    system ("/bin/sh $DATADIR/scripts/$ARGV[0]");
+    system ("/bin/sh $DATADIR/scripts/$ARGV[0] 2>&1 | $cmd_catchErr");
 } else {
     print "===> Running $op <===\n\n";
     if (($op =~ /stats/) && is_valid_function_stats($op)) {
 	$op =~ s/_stats//g;
         my $args_str = join(" ",@ARGV);
-        print "$RSCRIPT $STATSDIR/$op.R $args_str\n";
-        system ("$RSCRIPT $STATSDIR/$op.R ". join " ",@ARGV);
+        print "$RSCRIPT $STATSDIR/$op.R $args_str 2>&1 | $cmd_catchErr\n";
+        system ("$RSCRIPT $STATSDIR/$op.R ". join(" ",@ARGV) . "2>&1 | $cmd_catchErr");
     } elsif (is_valid_function($op)) {
         my $args_str = join(" ",@ARGV);
-        print "$RSCRIPT $BINDIR/$op.R $args_str\n";
-        system ("$RSCRIPT $BINDIR/$op.R ". join " ",@ARGV);
+        print "$RSCRIPT $BINDIR/$op.R $args_str 2>&1 | $cmd_catchErr\n";
+        system ("$RSCRIPT $BINDIR/$op.R ". join(" ",@ARGV) ." 2>&1 | $cmd_catchErr");
     } else {
         system ("/bin/cat $HELPDIR/main.hlp");
     }
+}
+
+# Catch error
+#
+if (-e  $hasError_file){
+	print STDERR "ERROR while running $op. Check the full report at 'stdout'\n";
 }
 
 sub is_valid_function {

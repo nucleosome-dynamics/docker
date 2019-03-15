@@ -1,3 +1,2 @@
-periodicity_stats Statistics on Nucleosome periodicity
-Usage: $op --input {gff} --genome {gff} --out_genes {csv} --out_gw {csv} 
-
+periodicity_stats: Statistics on Nucleosome periodicity
+Usage:(runNuclDyn | docker run [IMAGE]) periodicity_stats  --input {gff} --genome {gff} --out_genes {csv} --out_gw {csv} 

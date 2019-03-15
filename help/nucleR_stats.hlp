@@ -1,3 +1,2 @@
 nucleR_stats:     Nucleosome call statistics
-Usage: $op --input {gff} --genome {gff} --out_genes {csv} --out_gw {csv}
-
+Usage: (runNuclDyn|docker run [IMAGE]) nucleR_stats --input {gff} --genome {gff} --out_genes {csv} --out_gw {csv}

@@ -1,3 +1,3 @@
 NFR_stats:        Nucleosome Free Regions statistics
-Usage: $op --input {gff} --out_gw {csv} --genome {gff}
+Usage: (runNuclDyn|docker run [IMAGE])  NFR_stats --input {gff} --out_gw {csv} --genome {gff}
 

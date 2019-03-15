@@ -1,6 +1,6 @@
 Nucleosome Free Regions (NFR) are fragments of DNA that are depleted of nucleosomes. Only regions depleted of nucleosomes shorter than a given value (400 bp. by default) are reported, since a too long nucleosome-free region is likely to just be the result of experimental artifacts.
 
-Usage: (runNuclDyn | docker run nucldyn) NFR --input {gff} --output {gff} [--minwidth (bp)] [--threshold (bp)]
+Usage: (runNuclDyn | docker run [IMAGE]) NFR --input {gff} --output {gff} [--minwidth (bp)] [--threshold (bp)]
 
 Parameters
 
@@ -13,6 +13,5 @@ Parameters
 --minwidth [int, 110] 
   Minimum length (bp). Optional, default 110bp
 
---threshold [int, 400]
-  Maximum length (bp). Optional, default 400bp
-
+--threshold [int, 140]
+  Maximum length (bp). Optional, default 140bp

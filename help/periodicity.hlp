@@ -2,7 +2,9 @@ If, within a gene body, we consider the first and last nucleosomes as fixed poin
 
 This results in two kind of coverage profiles. If the first and last nucleosomes are in phase, the two sine waves will interact constructively and the profile will be well-positioned and defined. However, if the first and last nucleosomes are in anti-phase, the profile will be well-defined near those nucleosomes but will become fuzzier towards the center of the gene body.
 
-Usage: (runNuclDyn | docker run nucldyn) periodicity --calls {gff} --reads {RData} --type (single|paired) --gffOutput {gff} --bwOutput {bw} --genes {gff} --chrom_sizes {chrom.sizes} [--periodicity (bp)] [--cores (int)]
+Usage: (runNuclDyn | docker run [IMAGE]) periodicity --calls {gff} --reads {RData} --type (single|paired) --gffOutput {gff} --bwOutput {bw} --genes {gff} --chrom_sizes {chrom.sizes} [--periodicity (bp)] [--cores (int)]
+
+
 
 Parameters:
 --calls
@@ -31,4 +33,3 @@ Parameters:
 
 --cores 
   Number of computer threads. Optional, default 1
-
