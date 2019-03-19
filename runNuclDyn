@@ -65,12 +65,12 @@ if ($op eq "run") {
     if (($op =~ /stats/) && is_valid_function_stats($op)) {
 	$op =~ s/_stats//g;
         my $args_str = join(" ",@ARGV);
-        print "$RSCRIPT $STATSDIR/$op.R $args_str 2>&1 | $cmd_catchErr\n";
-        system ("$RSCRIPT $STATSDIR/$op.R ". join(" ",@ARGV) . "2>&1 | $cmd_catchErr");
+        my $cmd = "$RSCRIPT $STATSDIR/$op.R $args_str 2>&1 | $cmd_catchErr\n";
+	system($cmd);
     } elsif (is_valid_function($op)) {
         my $args_str = join(" ",@ARGV);
-        print "$RSCRIPT $BINDIR/$op.R $args_str 2>&1 | $cmd_catchErr\n";
-        system ("$RSCRIPT $BINDIR/$op.R ". join(" ",@ARGV) ." 2>&1 | $cmd_catchErr");
+        my $cmd = "$RSCRIPT $BINDIR/$op.R $args_str 2>&1 | $cmd_catchErr\n";
+        system ($cmd);
     } else {
         system ("/bin/cat $HELPDIR/main.hlp");
     }
