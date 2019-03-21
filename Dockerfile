@@ -31,7 +31,7 @@ USER nucdyn:nucdyn
 LABEL base.image="ubuntu:18.04"
 LABEL software="NucleosomeDynamics"
 LABEL software.version="Contains R 3.5.0  NucDyn 1.0, NucleR 2.2.0"
-LABEL version="latest"
+LABEL version="v1.0"
 LABEL about.summary="R Based package for Nucleosome positioning analysis using MNase seq data"
 LABEL about.home="http://mmb.irbbarcelona.org/NucleosomeDynamics"
 LABEL about.license="APACHE2"

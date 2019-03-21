@@ -64,6 +64,7 @@ Available analysis are:
 | periodicity  | Periodic properties of nucleosomes inside gene bodies |
 | stiffness | Aparent stiffness constant foreach nucleosome obtained by fitting the coverage to a gaussian distribution |
 | nucleR_stats|	 Nucleosome call statistics|
+| nucDyn          | Comparison of two diferent MNase-seq experiments to nucleosome architecture local changes |
 | NFR_stats|		 Nucleosome Free Regions statistics|
 | txstart_stats|	 TSS and TTS statistics|
 | periodicity_stats|  Statistics on Nucleosome periodicity|
@@ -304,10 +305,14 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 
 
 #### Example
+
+TDB 
+
 ```sh
 docker run -v $PWD/test/data/:$PWD/test/data mmbirb/nucldyn readBAM --input $PWD/test/data/cellcycleG2_chrII.bam --output $PWD/test/data/cellcycleG2_chrII.RData --type paired
 ```
 
 
 # Running a workflow script
-You can combine different analysis tools to build your own workflow. Galaxy platform allows 
+You can combine different analysis tools to build your own workflow. Galaxy platform allows... 
+TDB 
