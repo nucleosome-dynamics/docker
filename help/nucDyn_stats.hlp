@@ -1,2 +1,2 @@
 nucDyn_stats:     Statistics on Nucleosome Dynamics analysis
-Usage:  (runNuclDyn | docker run [IMAGE]) nucDyn_stats--input {gff} --genome {gff} --out_genes {csv} --out_gw {png}
+Usage:  (runNuclDyn | docker run [IMAGE]) nucDyn_stats --input {gff} --genome {gff} --out_genes {csv} --out_gw {png}

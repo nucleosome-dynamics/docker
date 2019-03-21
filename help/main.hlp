@@ -21,7 +21,7 @@ Main commands:
    NFR:              Short regions depleted of nucleosomes
    txstart:          Classify Transciption start accordint to the properties of surrounding nucleosomes
    periodicity:      Periodic properties of nucleosomes inside gene bodies
-   gaussfitting:     Aparent stiffness constant foreach nucleosome obtained by fitting the coverage to a gaussian distribution
+   stiffness:        Aparent stiffness constant foreach nucleosome obtained by fitting the coverage to a gaussian distribution
    nucDyn:           Comparative analysis of nucleosome positions in two conditions
    nucleR2structure: 
    toBigWig: 
@@ -33,7 +33,7 @@ Statistics:
    nucleR_stats:       Nucleosome call statistics
    NFR_stats:          Nucleosome Free Regions statistics
    txstart_stats:      TSS and TTS statistics
-   periodicity_stats   Statistics on Nucleosome periodicity
-   gaussfitting_stats: Statistics on stiffness
+   periodicity_stats:  Statistics on Nucleosome periodicity
+   stiffness_stats:    Statistics on stiffness
    nucDyn_stats:       Statistics on Nucleosome Dynamics analysis
 
