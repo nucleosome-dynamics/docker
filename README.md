@@ -113,7 +113,7 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 	--fragmentLen
 		Fragment Length (bp). Optional, default 170.
 	--trim
-		Optional, default 50
+		Number of basepairs to keep from each read (or to extend in case it is larger than the read width). Optional, default 50
 	--threshold
 		 Threshold to filter out which nucleosome calls are reported as significant enough. It can be supplied as either an absolute value (--thresholdValue) or as a relative value expressed as a percentage (--thresholdPercentage). If set to TRUE, the percentage value is considered. If set to FALSE, the absolute value does. Optional, default TRUE.
 	--thresholdValue
@@ -243,6 +243,7 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 		
 
 **NFR_stats** --input {gff}  --genome {gff} --out_gw {csv}
+
 	--input
 		Nucleosome calls in GFF format as obtained from NFR
 	--genome 
@@ -278,7 +279,7 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 **stiffness_stats** -input {gff} --genome {gff} --out_genes {csv} --out_gw {csv} --out_gw2 {png}
 
 	--input 
-		Nucleosome calls in GFF format as obtained from stiffness_stats
+		Nucleosome calls in GFF format as obtained from stiffness
 	--genome
 		Gene positions from the reference genome. GFF Format
 	--out_genes
@@ -292,7 +293,7 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 **nucDyn_stats** --input {gff} --genome {gff} --out_genes {csv} --out_gw {png}
 
 	--input 
-		Nucleosome calls in GFF format as obtained from stiffness_stats
+		Nucleosome calls in GFF format as obtained from nucDyn	
 	--genome
 		Gene positions from the reference genome. GFF Format
 	--out_genes
