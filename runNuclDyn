@@ -35,8 +35,8 @@ my $BINDIR = "$NDDIR/NuclDyn/bin";
 my $STATSDIR = "$NDDIR/NuclDyn/statistics";
 my $HELPDIR = "$NDDIR/help";
 
-my $DATADIR = "/data_dir";     # used to find DATADIR/scripts/user_wf.file
-my $PUBLICDIR = "/public_dir"; # OBSOLETE
+# my $DATADIR = "/data_dir";     # used to find DATADIR/scripts/user_wf.file
+# my $PUBLICDIR = "/public_dir"; # OBSOLETE
 
 my $FUNCTIONS = ['run','readBAM','nucleR','NFR','txstart','periodicity','stiffness','nucDyn','nucleR2structure','toBigWig','fromBigWig','coverage','js_plot'];
 my $FUNCTIONS_STATS = ['nucleR_stats','NFR_stats','txstart_stats','periodicity_stats','stiffness_stats','nucDyn_stats'];
@@ -68,13 +68,13 @@ if (!@ARGV || ($ARGV[0] eq '--help') || ($ARGV[0] eq '-h')) {
 my $hasError_file = "/tmp/hasError".rand();
 my $cmd_catchErr = "while read line; do echo \$line; if echo \${line} | grep -iqP 'ERROR'; then echo \${line}  >  $hasError_file;  fi;  done";
 
-if (-e $DATADIR) {
-    chdir $DATADIR;
-}
+#if (-e $DATADIR) {
+     #chdir $DATADIR;
+# }
 
 if ($op eq "run") {
     print "===> Running $op <===\n\n";
-    system ("/bin/sh $DATADIR/scripts/$ARGV[0] 2>&1 | $cmd_catchErr");
+    system ("/bin/sh $ARGV[0] 2>&1 | $cmd_catchErr");
 } else {
     print "===> Running $op <===\n\n";
     if (($op =~ /stats/) && is_valid_function_stats($op)) {

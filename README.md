@@ -95,7 +95,7 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 	--type
 		Type of sequence data: single|paired
 	--width: 
-		Width given to nucleosome calls previous to merging (bp). 
+		Width given to nucleosome calls previous to merging (bp). Default 147 
 	--minoverlap: 
 		Minimum number of overlapping base pairs in two nucleosome calls for them to be merged into one (bp).
 	--dyad_length: 
@@ -107,9 +107,9 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 	--pcKeepComp
 		Parameter used in the coverage smoothing when Fourier transformation is applied. Number of components to select with respect to the total size of the sample. Allowed values are numeric (in range 0:1) for manual setting, or auto for automatic detection. Optional, default 0.02.
 	--fdrOverAmp
-		Optional, default 0.05. 
+		Threshold to filter over-amplified reads , as defined in filterDuplReads function of htSetqTools R package. Optional, default 0.05. 
 	--components
-		Optional, default 1.
+		Number of negative binomials that will be used to filter duplicated reads, as defined in filterDuplReads function of htSetqTools R package. Optional, default 1.
 	--fragmentLen
 		Fragment Length (bp). Optional, default 170.
 	--trim
@@ -134,13 +134,12 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 		Nucleosome calls in GFF format as obtained from NucleR
 	--output {gff} 
 		Nucleosome Free Regions in GFF format
-	--minwidth [int, 110] 
+	--minwidth 
 		Minimum length (bp). Optional, default 110bp
-	--threshold [int, 140]
+	--threshold 
 		Maximum length (bp). Optional, default 140bp
 
-**txstart**   ---calls {gff} --genome {gff} --output {gff}
-[--window {int} --open_thresh {int}  --cores {int} --p1.max.merge {int} --p1.max.downstream {int} --max.uncovered {int} ]
+**txstart**   ---calls {gff} --genome {gff} --output {gff} --window {int} --open_thresh {int} [ --cores {int} --p1.max.downstream {int} ]
 
 
 	--calls
@@ -155,12 +154,9 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 		Distance between nucleosomes -1 and +1 to discriminate between 'open' and 'close' classes. Default 215
 	--cores
 		Number of computer threads. Optional, default 1
-	--p1.max.merge
-		Optional, default 3
 	--p1.max.downstream
-		Optional, default 20
-	--max.uncovered
-		Optional, datault 150
+		Maximum distance to look for +1 nucleosome relative to the TSSOptional. Optional, default 20
+	
 
 **periodicity** --calls {gff} --reads {RData} --type (single|paired) --gffOutput {gff} --bwOutput {bw} --genes {gff} --chrom_sizes {chrom.sizes}
 [--periodicity {int} --cores {int} ]
@@ -198,7 +194,7 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 		Temperature (K). Optional, default 310.15
 
 **nucDyn**  --input1 {RData} --input2 {RData} --calls1 {gff} --calls2 {gff} --outputGff {gff} --outputBigWig {bw}  --genome {chrom.sizes} --range {str}
-[ --plotRData {RData} --maxDiff {int} --maxLen {int} --shift_min_nreads {int} --shift_threshold {double} --indel_min_nreads {int} --indel_threshold {double} --cores {int} --equal_size (logical) --readSize {int} --roundPow [logical] --same_magnitude [logical] ]
+[ --plotRData {RData} --maxDiff {int} --maxLen {int} --shift_min_nreads {int} --shift_threshold {double} --indel_min_nreads {int} --indel_threshold {double} --cores {int} --equal_size (logical) --readSize {int} ]
 
 	-- input1, --input2
 		Input BAM from MNase-seq in RData format (from readBAM)
@@ -226,16 +222,13 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 		Minimum number of shifted reads for an indel hostspot to be reported {int}, optional, default 3
 	--indel_threshold [float, 0.05]
 		Threshold applied to the indel hostpots. Only hotspots with a score better than the value will be reported. Notice the score has to be lower than the threshold, since these numbers represent p-values. Optional, default 0.05
-	--cores [int, 1]
+	--cores 
 		Number of computer threads. Optional, default 1
 	--equal_size
 		Set all fragments to the same size. Optional, default FALSE
-	--readSize [int, 140]
+	--readSize  
+                Length to which all reads will be set in case `equalSize` is `TRUE`. It is ignored when `equalSize` is set to `FALSE`. Default 140
 	
-	--roundPow [logical]
-	
-	--same_magnitude [logical]
-
 
 **nucleR_stats** --input {gff} --genome {gff} --out_genes {csv} --out_gw {csv}
 
@@ -244,8 +237,10 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 	--genome
 		Gene positions from the reference genome. GFF Format
 	--out_genes
-	
+	        Output file containing statistics of all calculations for each gene. CSV format 
 	--out_gw
+		Output file containing table of genome wide statistics. CSV format 
+		
 
 **NFR_stats** --input {gff}  --genome {gff} --out_gw {csv}
 	--input
@@ -253,7 +248,7 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 	--genome 
 		Gene positions from the reference genome. GFF Format
 	--out_gw 
-		Output NFR stats in CSV format
+		Output file containing table of genome wide statistics. CSV format
 
 **txstart_stats** --input {gff} --genome {gff} --out_genes {csv} --out_gw {png} --out_gw2 {png}
 
@@ -262,10 +257,11 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 	--genome
 		Gene positions from the reference genome. GFF Format
 	--out_genes
-		Output txstart_stats in CSV format
+		Output file containing statistics of all calculations for each gene. CSV format
 	--out_gw
-
+		Output file containing table of genome wide statistics. PNG format
 	--out_gw2
+		Output file containing table of genome wide statistics. PNG format	
 	
 
 **periodicity_stats** --input {gff} --genome {gff} --out_genes {csv} --out_gw {csv}
@@ -275,8 +271,9 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 	--genome
 		Gene positions from the reference genome. GFF Format
 	--out_genes
-			
+		Output file containing statistics of all calculations for each gene. CSV format
 	--out_gw
+		Output file containing table of genome wide statistics. CSV format
 
 **stiffness_stats** -input {gff} --genome {gff} --out_genes {csv} --out_gw {csv} --out_gw2 {png}
 
@@ -285,10 +282,11 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 	--genome
 		Gene positions from the reference genome. GFF Format
 	--out_genes
-		Output stiffness_stats in CSV format
+		Output file containing statistics of all calculations for each gene. CSV format
 	--out_gw
-	
+		Output file containing table of genome wide statistics. CSV format
 	--out_gw2
+		Output file containing table of genome wide statistics. PNG format
 	
 
 **nucDyn_stats** --input {gff} --genome {gff} --out_genes {csv} --out_gw {png}
@@ -298,8 +296,9 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucldyn 
 	--genome
 		Gene positions from the reference genome. GFF Format
 	--out_genes
-		Output stiffness_stats in CSV format
+		Output file containing statistics of all calculations for each gene. CSV format
 	--out_gw
+		Output file containing table of genome wide statistics. PNG format
 
 
 

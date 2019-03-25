@@ -23,7 +23,7 @@ To achieve that, the dynamic programming algorithm works the following way:
     Pairs are given a score that is inversely proportional to the centers distance (to prioratize close pairs).
     Centers distance bigger than 74 bp. are given a score of -Infinity so that it can never happen.
 
-Usage: (runNuclDyn | docker run [IMAGE]) nucDyn --input1 {RData} --input2 {RData} --calls1 {gff} --calls2 {gff} --outputGff {gff} --outputBigWig {bw} --plotRData {RData} --genome {chrom.sizes} --range (All|chr|chr:start-end) [--maxDiff (int, 70)] [--maxLen (int, 140)] --shift_min_nreads [int, 3] --shift_threshold [float, 0.1] --indel_min_nreads [int, 3] --indel_threshold [float, 0.05] --cores [int, 1] --equal_size [logical, FALSE] --readSize [int, 140] --roundPow [logical] --same_magnitude [logical]
+Usage: (runNuclDyn | docker run [IMAGE]) nucDyn --input1 {RData} --input2 {RData} --calls1 {gff} --calls2 {gff} --outputGff {gff} --outputBigWig {bw} --plotRData {RData} --genome {chrom.sizes} --range (All|chr|chr:start-end) [--maxDiff (int, 70)] [--maxLen (int, 140)] --shift_min_nreads [int, 3] --shift_threshold [float, 0.1] --indel_min_nreads [int, 3] --indel_threshold [float, 0.05] --cores [int, 1] --equal_size [logical, FALSE] --readSize [int, 140] 
 
 
 Parameters:
@@ -71,8 +71,5 @@ Parameters:
 --equal_size 
   Set all fragments to the same size. Optional, default FALSE
 
---readSize [int, 140] 
-
---roundPow [logical] 
-
---same_magnitude [logical]
+--readSize [int, 140]  
+  Length to which all reads will be set in case `equalSize` is `TRUE`. It is ignored when `equalSize` is set to `FALSE`. Default 140

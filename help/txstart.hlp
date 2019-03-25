@@ -5,7 +5,7 @@ Additionally, these two nucleosomes' dyads can be close together or further apar
 
 Taking all this information into account, a transcription start site can present any of the following conformations: W-close-W, W-close-F, F-close-W, F-close-F, W-open-W, W-open-F, F-open-W, F-open-F, +1 missing, W - missing, F - missing
 
-Usage: (runNuclDyn|docker run [IMAGE]) txstart --calls {gff} --genome {gff} --output {gff} [--window (bp)] [--open_thresh (int)] [--cores (int)] [--p1.max.merge (int)] [--p1.max.downstream (int)] [--max.uncovered (int)]
+Usage: (runNuclDyn|docker run [IMAGE]) txstart --calls {gff} --genome {gff} --output {gff} [--window (bp)] [--open_thresh (int)] [--cores (int)]  [--p1.max.downstream (int)]
 
 
 Parameters:
@@ -17,16 +17,11 @@ Parameters:
 
 --output 
   Classification of TSS according to nucleosome types,  in GFF format
-
---window [int, 300]
- 
---open_thresh [int, 215] 
-
---cores [int, 1] 
+--window
+  Number of nucleotides on each side of the TSS where -1 and +1 nucleosomes are searched for. Default 300
+--open_thresh
+  Distance between nucleosomes -1 and +1 to discriminate between 'open' and 'close' classes. Default 215
+--cores
   Number of computer threads. Optional, default 1
-
---p1.max.merge [int, 3]. Optional 
-
---p1.max.downstream [int, 20]. Optional
-
---max.uncovered [int, 150]. Optional
+--p1.max.downstream
+  Maximum distance to look for +1 nucleosome relative to the TSSOptional. Optional, default 20

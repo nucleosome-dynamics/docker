@@ -9,17 +9,17 @@ RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/" | tee
 RUN apt update && apt-get  install -y r-base apt-transport-https libcurl4-openssl-dev libxml2-dev
 RUN mkdir /home/NucleosomeDynamics
 WORKDIR /home/NucleosomeDynamics
-COPY setRlibs.R .
-RUN /usr/bin/Rscript setRlibs.R 
+COPY dependencies_nucleR.R .
+RUN /usr/bin/Rscript dependencies_nucleR.R 
 COPY nucleR_2.2.0.tar.gz .
 RUN R CMD INSTALL nucleR_2.2.0.tar.gz
 RUN git clone -b galaxy http://mmb.irbbarcelona.org/gitlab/NuclDynamics/NucleosomeDynamics_core.git NuclDyn_core
 RUN tar -czvf  NuclDyn_core.tar.gz NuclDyn_core 
 RUN R CMD INSTALL NuclDyn_core.tar.gz
 RUN git clone -b galaxy http://mmb.irbbarcelona.org/gitlab/NuclDynamics/nucleServ.git NuclDyn 
-COPY setRlibs2.R .
-RUN /usr/bin/Rscript setRlibs2.R 
-COPY wf-test.sh .
+COPY dependencies_NucDyn.R .
+RUN /usr/bin/Rscript dependencies_NucDyn.R 
+COPY test/scripts/wf-test.sh .
 COPY runNuclDyn . 
 COPY help/* help/
 RUN chmod +x runNuclDyn
