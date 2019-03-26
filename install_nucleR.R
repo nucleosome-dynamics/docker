@@ -13,11 +13,13 @@
 #  limitations under the License.
 
   
-source("https://bioconductor.org/biocLite.R")
-biocLite('dplyr')
-biocLite('IRanges')
-biocLite('GenomicRanges')
-biocLite('ShortRead',ask = FALSE)
-biocLite('doParallel')
-biocLite('ggplot2')
-biocLite('magrittr')
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install('dplyr')
+BiocManager::install('IRanges')
+BiocManager::install('GenomicRanges')
+BiocManager::install('ShortRead',ask = FALSE)
+BiocManager::install('doParallel')
+BiocManager::install('ggplot2')
+BiocManager::install('magrittr')
+BiocManager::install("nucleR", version = "3.8")

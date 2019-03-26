@@ -31,8 +31,8 @@ if (! -d $NDDIR){
 	$NDDIR = cwd().$lo;
 }
 
-my $BINDIR = "$NDDIR/NuclDyn/bin";
-my $STATSDIR = "$NDDIR/NuclDyn/statistics";
+my $BINDIR = "$NDDIR/NucleosomeDynamics/bin";
+my $STATSDIR = "$NDDIR/NucleosomeDynamics/statistics";
 my $HELPDIR = "$NDDIR/help";
 
 # my $DATADIR = "/data_dir";     # used to find DATADIR/scripts/user_wf.file

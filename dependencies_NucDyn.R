@@ -12,11 +12,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-  
-source("https://bioconductor.org/biocLite.R")
-biocLite('getopt')
-#biocLite('RCurl')
-biocLite('htSeqTools',ask = FALSE)
-#biocLite('htmlwidgets')
-biocLite('ggplot2')
-#biocLite('dplyr')
+BiocManager::install('getopt')
+BiocManager::install('htSeqTools',ask = FALSE)
+BiocManager::install('ggplot2')  
