@@ -98,4 +98,6 @@ Where:
 
 Here is an example on how to run the test workflow file `test/scripts/wf-test.sh`, a bash file sequencially calling all 'Nucleosome Dynamics' analyses.
 
-perl ./runNuclDyn run /home/user/NucleosomeDynamics/docker/docker/test/scripts/wf-test.sh 
+```
+docker run -v /path/to/data_dir/:/path/to/data_dir mmbirb/nucleosome-dynamics  run /path/to/data_dir/test/scripts/wf-test.sh 
+```
