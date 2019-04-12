@@ -88,10 +88,16 @@ You can combine different analysis tools to build your own workflow, you can do 
 
 ```sh
 
-(runNuclDyn | docker run -v /path/to/data_dir/:/path/to/data_dir mmbirb/nucleosome-dynamics)   run  [WF_file_path]
+docker run -v /path/to/data_dir/:/path/to/data_dir mmbirb/nucleosome-dynamics  run  [WF_file_path]
 
 ```
+Where:
+- `WF_file_path`: is a bash file containing the Rscript calls to different analyses.
 
 #### Example
 
-perl ./runNuclDyn run /home/user/NucleosomeDynamics/docker/docker/test/scripts/wf-test.sh 
+Here is an example on how to run the test workflow file `test/scripts/wf-test.sh`, a bash file sequencially calling all 'Nucleosome Dynamics' analyses.
+
+```
+docker run -v /path/to/data_dir/:/path/to/data_dir mmbirb/nucleosome-dynamics  run /path/to/data_dir/test/scripts/wf-test.sh 
+```
