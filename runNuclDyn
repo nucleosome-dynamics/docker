@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 #  Copyright 2019 Barcelona Supercomputing Center
 #  
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +14,6 @@
 #  limitations under the License.
 
   
-#!/usr/bin/perl
 #
 # runNuclDyn: launcher for Nucl. Dynamics executables
 # Authors: Josep Ll. Gelpi 2018
