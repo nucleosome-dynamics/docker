@@ -12,9 +12,6 @@ Nucleosome Dynamics is a suite of R programs for **nucleosome-related analyses**
 - TSS: classify transcription start sites based on the surrounding nucleosomes
 - Stiffness: computes nucleosome stiffness derived from a Gaussian function fitting
 
-| Landing page | http://mmb.irbbarcelona.org/NucleosomeDynamics| 
-| ------------ |----------------------------------------------|
-
 #### Container software 
 This docker image extends and distributes the following rellevant software:
 
@@ -77,7 +74,7 @@ Each analysis has its own input files and arguments. `docker run mmbirb/nucleoso
 
 #### Example
 
-Here is an example on how to load a the MNase-seq reads file using `readBAM`. It takes as input a BAM file and convert it into an RData file ready to be feed to other analyses ('nucleR', 'NFR', etc.).
+Here is an example on how to load a MNase-seq reads file using `readBAM`. It takes as input a BAM file and convert it into an RData file ready to be feed to other analyses ('nucleR', 'NFR', etc.).
 
 ```sh
 docker run -v $PWD/test/data/:$PWD/test/data mmbirb/nucleosome-dynamics readBAM --input $PWD/test/data/cellcycleG2_chrII.bam --output $PWD/test/data/cellcycleG2_chrII.RData --type paired
