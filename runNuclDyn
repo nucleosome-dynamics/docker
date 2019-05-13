@@ -74,7 +74,7 @@ my $cmd_catchErr = "while read line; do echo \$line; if echo \${line} | grep -iq
 
 if ($op eq "run") {
     print "===> Running $op <===\n\n";
-    system ("/bin/sh $ARGV[0] 2>&1 | $cmd_catchErr");
+    system ("/bin/sh @ARGV 2>&1 | $cmd_catchErr");
 } else {
     print "===> Running $op <===\n\n";
     if (($op =~ /stats/) && is_valid_function_stats($op)) {
