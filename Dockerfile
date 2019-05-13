@@ -6,7 +6,7 @@ tcsh software-properties-common git libcurl4-gnutls-dev libxml2-dev vim wget
 RUN gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9  
 RUN gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | apt-key add -
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/" | tee -a /etc/apt/sources.list
-RUN apt update && apt-get  install -y r-base apt-transport-https libcurl4-openssl-dev libxml2-dev
+RUN apt update && apt-get  install -y  r-base apt-transport-https libcurl4-openssl-dev libxml2-dev
 RUN mkdir /home/NucleosomeDynamics
 WORKDIR /home/NucleosomeDynamics
 COPY install_nucleR.R .
